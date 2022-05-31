@@ -1,0 +1,162 @@
+if [ -f $HOME/.zshrc.d/zshenv.sh ]; then
+  source $HOME/.zshrc.d/zshenv.sh
+fi
+
+if [ -f $HOME/.zshrc.d/alias.sh ]; then
+  source $HOME/.zshrc.d/alias.sh
+fi
+
+# XDG
+export XDG_DATA_HOME="$HOME/.local/share"
+
+# Add ~/bin to PATH
+export PATH="$PATH:$HOME/bin"
+
+# Allow user wide npm installations
+# https://wiki.archlinux.org/title/Node.js#Node_Packaged_Modules
+export npm_config_prefix="$HOME/.local"
+
+# VTE configuration for Tilix
+# https://gnunn1.github.io/tilix-web/manual/vteconfig/
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi
+
+# Zi
+# https://z.digitalclouds.dev/docs/getting_started/installation
+zi_home="${HOME}/.zi"
+source "${zi_home}/bin/zi.zsh"
+
+# Git
+zi snippet OMZL::git.zsh
+zi snippet OMZP::git
+zi cdclear -q
+
+# Git [Addons]
+zi snippet OMZP::git-extras
+# zi snippet OMZP::gh
+zi snippet OMZP::git-lfs
+
+# GPG/SSH/Security
+zi snippet OMZP::gpg-agent
+zi snippet OMZP::ssh-agent
+zi snippet OMZP::keychain
+zi snippet OMZP::safe-paste
+zi snippet OMZP::firewalld
+
+# Python
+zi snippet OMZP::pip
+zi snippet OMZP::pipenv
+zi snippet OMZP::python
+zi snippet OMZP::pylint
+
+# Sysadmin
+zi snippet OMZP::sudo
+zi snippet OMZP::cp
+zi snippet OMZP::systemd
+zi snippet OMZP::systemadmin
+zi snippet OMZP::tmux
+
+# Other
+zi snippet OMZP::urltools
+zi snippet OMZP::common-aliases
+
+zi ice as"completion"
+zi snippet OMZP::ag/_ag
+
+zi snippet OMZP::colored-man-pages
+zi snippet OMZP::history-substring-search
+zi snippet OMZP::history-substring-search/history-substring-search.zsh
+
+# OOB (Out-of-band)
+zi load buonomo/yarn-completion
+zi load chrissicool/zsh-256color
+zi load zsh-users/zsh-completions
+zi load lukechilds/zsh-better-npm-completion
+zi load lukechilds/zsh-nvm
+zi load zsh-users/zsh-syntax-highlighting
+
+zi ice if"[[ -d ${HOME}/.fonts/ttf ]] && [[ $OSTYPE = linux* ]]" \
+  id-as"meslo" from"gh-r" bpick"Meslo.zip" extract nocompile depth"1" \
+  atclone="rm -f *Windows*; mv -vf *.ttf ${HOME}/.fonts/ttf/; fc-cache -v -f" atpull"%atclone"
+zi light ryanoasis/nerd-fonts
+
+
+
+#zi ice if"[ "${TERM##*-}" = '256color' ] || [ "${terminfo[colors]:?}" -gt 255 ]" depth=1
+zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
+zi light romkatv/powerlevel10k
+
+zi snippet OMZL::prompt_info_functions.zsh
+zi snippet OMZL::theme-and-appearance.zsh
+zi snippet OMZT::3den
+
+#Config
+#Keychain
+zstyle :omz:plugins:keychain options --quiet
+zstyle :omz:plugins:keychain agents gpg,ssh
+zstyle :omz:plugins:keychain identities id_ed25519_gitit id_ed25519_servers id_ed25519_local id_ecdsa
+
+autoload -Uz compinit && compinit
+
+# Zstyle
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description '%d'
+zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
+zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
+zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
+zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
+zstyle ':completion:*' use-cache true
+zstyle ':completion:*' rehash true
+zstyle ':completion::complete:*' gain-privileges 1
+setopt COMPLETE_ALIASES
+zstyle ':completion:*' menu select
+
+# Setopt
+setopt pushd_ignore_dups
+setopt auto_pushd
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+
+
+zi light-mode for z-shell/z-a-meta-plugins @annexes+rec
+zi light-mode for @annexes @ext-git @zsh-users @zsh-users+fast @z-shell  @sharkdp  @console-tools @fuzzy @ext-git @py-utils @prezto
+
+# Plugins
+
+zi ice blockf
+
+zi light zsh-users/zsh-syntax-highlighting
+zi light zsh-users/zsh-completions
+zi load zsh-users/zsh-autosuggestions
+
+zi ice wait lucid atinit"ZI[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
+zi light z-shell/F-Sy-H
+
+zi ice lucid wait has'fzf'
+zi load z-shell/H-S-MW
+zi light z-shell/zzcomplete
+zi light Aloxaf/fzf-tab
+
+zi ice lucid wait as'completion' blockf mv'git-completion.zsh -> _git'
+zi snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
+
+zi snippet OMZ::plugins/git/git.plugin.zsh
+zi snippet OMZ::plugins/sudo/sudo.plugin.zsh
+zi snippet PZT::modules/helper/init.zsh
+
+zstyle ':completion:*' menu select
+
+fast-theme forest > /dev/null
+
+
+
