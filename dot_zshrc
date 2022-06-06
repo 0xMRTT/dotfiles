@@ -1,3 +1,4 @@
+
 if [ -f $HOME/.zshrc.d/zshenv.sh ]; then
   source $HOME/.zshrc.d/zshenv.sh
 fi
@@ -158,5 +159,10 @@ zstyle ':completion:*' menu select
 
 fast-theme forest > /dev/null
 
+for f in ~/.zfunc/*; do
+  source $f
+done
 
+
+neofetch
 
