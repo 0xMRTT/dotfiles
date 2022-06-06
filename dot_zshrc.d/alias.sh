@@ -9,7 +9,7 @@ alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale --icons'  
 # specialty views
 alias lS='exa -1 --icons'                                                       # one column, just names
 alias lt='exa --tree --level=2 --icons'                                         # tree
-alias tree="lt"
+alias tree="exa --tree --icons"
 
 # pacman
 alias autoremove='yay -R $(yay -Qtqd)'
@@ -17,3 +17,8 @@ alias autoremove='yay -R $(yay -Qtqd)'
 # chezmoi
 alias dot="chezmoi add"
 alias dot-apply="chezmoi apply"
+
+# bat
+alias cat="bat -f"
+
+alias c="clear"
