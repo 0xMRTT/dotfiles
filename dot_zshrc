@@ -1,3 +1,4 @@
+fpath+=~/.zfunc
 
 if [ -f $HOME/.zshrc.d/zshenv.sh ]; then
   source $HOME/.zshrc.d/zshenv.sh
@@ -158,11 +159,6 @@ zi snippet PZT::modules/helper/init.zsh
 zstyle ':completion:*' menu select
 
 fast-theme forest > /dev/null
-
-for f in ~/.zfunc/*; do
-  source $f
-done
-
 
 neofetch
 
