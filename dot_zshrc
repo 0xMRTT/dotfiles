@@ -12,7 +12,7 @@ fi
 export XDG_DATA_HOME="$HOME/.local/share"
 
 # Add ~/bin to PATH
-export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin"
 
 # Allow user wide npm installations
 # https://wiki.archlinux.org/title/Node.js#Node_Packaged_Modules
@@ -160,5 +160,5 @@ zstyle ':completion:*' menu select
 
 fast-theme forest > /dev/null
 
-neofetch
+#neofetch
 
