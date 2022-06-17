@@ -6,6 +6,7 @@
 [user]
 	name = "0xMRTT"
 	email = "0xMRTT@tuta.io"
+	signingkey = DD0F0A3C8A03792D
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
@@ -14,3 +15,5 @@
 	helper = !/usr/bin/gh auth git-credential
 [init]
 	defaultBranch = main
+[commit]
+	gpgsign = true
