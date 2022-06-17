@@ -22,3 +22,5 @@ alias dot-apply="chezmoi apply"
 alias cat="bat -f"
 
 alias c="clear"
+
+alias wbot="npx @open-wa/wa-automate -a -p 8080"
