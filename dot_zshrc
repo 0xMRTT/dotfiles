@@ -1,5 +1,7 @@
 fpath+=~/.zfunc
 
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+
 if [ -f $HOME/.zshrc.d/zshenv.sh ]; then
   source $HOME/.zshrc.d/zshenv.sh
 fi
@@ -41,14 +43,13 @@ zi snippet OMZP::git-lfs
 
 # GPG/SSH/Security
 zi snippet OMZP::gpg-agent
-zi snippet OMZP::ssh-agent
+#zi snippet OMZP::ssh-agent
 zi snippet OMZP::keychain
 zi snippet OMZP::safe-paste
 zi snippet OMZP::firewalld
 
 # Python
 zi snippet OMZP::pip
-zi snippet OMZP::pipenv
 zi snippet OMZP::python
 zi snippet OMZP::pylint
 
@@ -57,7 +58,7 @@ zi snippet OMZP::sudo
 zi snippet OMZP::cp
 zi snippet OMZP::systemd
 zi snippet OMZP::systemadmin
-zi snippet OMZP::tmux
+
 
 # Other
 zi snippet OMZP::urltools
@@ -160,5 +161,8 @@ zstyle ':completion:*' menu select
 
 fast-theme forest > /dev/null
 
-#neofetch
+neofetch
 
+zi light-mode for \
+  z-shell/z-a-meta-plugins \
+  @annexes @zunit
