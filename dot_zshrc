@@ -1,7 +1,5 @@
 fpath+=~/.zfunc
 
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
-
 if [ -f $HOME/.zshrc.d/zshenv.sh ]; then
   source $HOME/.zshrc.d/zshenv.sh
 fi
