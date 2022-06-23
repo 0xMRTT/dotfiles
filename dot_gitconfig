@@ -6,7 +6,7 @@
 [user]
 	name = "0xMRTT"
 	email = "0xMRTT@tuta.io"
-	signingkey = DD0F0A3C8A03792D
+	signingkey = 0F3BEC05E19A35A4
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
