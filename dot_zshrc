@@ -77,16 +77,18 @@ zi load lukechilds/zsh-better-npm-completion
 zi load lukechilds/zsh-nvm
 zi load zsh-users/zsh-syntax-highlighting
 
-zi ice if"[[ -d ${HOME}/.fonts/ttf ]] && [[ $OSTYPE = linux* ]]" \
-  id-as"meslo" from"gh-r" bpick"Meslo.zip" extract nocompile depth"1" \
-  atclone="rm -f *Windows*; mv -vf *.ttf ${HOME}/.fonts/ttf/; fc-cache -v -f" atpull"%atclone"
-zi light ryanoasis/nerd-fonts
+#zi ice if"[[ -d ${HOME}/.fonts/ttf ]] && [[ $OSTYPE = linux* ]]" \
+#  id-as"meslo" from"gh-r" bpick"Meslo.zip" extract nocompile depth"1" \
+#  atclone="rm -f *Windows*; mv -vf *.ttf ${HOME}/.fonts/ttf/; fc-cache -v -f" atpull"%atclone"
+#zi light ryanoasis/nerd-fonts
 
 
 
 #zi ice if"[ "${TERM##*-}" = '256color' ] || [ "${terminfo[colors]:?}" -gt 255 ]" depth=1
-zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
-zi light romkatv/powerlevel10k
+#zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
+#zi light romkatv/powerlevel10k
+
+
 
 zi snippet OMZL::prompt_info_functions.zsh
 zi snippet OMZL::theme-and-appearance.zsh
@@ -164,3 +166,9 @@ neofetch
 zi light-mode for \
   z-shell/z-a-meta-plugins \
   @annexes @zunit
+
+export QT_QPA_PLATFORMTHEME="qt5ct"
+
+eval "$(starship init zsh)"
+
+export PATH="$PATH:`yarn global bin`"
