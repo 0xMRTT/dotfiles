@@ -174,3 +174,6 @@ eval "$(starship init zsh)"
 export PATH="$PATH:`yarn global bin`"
 
 eval "$(zoxide init zsh --cmd cd)"
+
+export VISUAL=nano
+export EDITOR=nano
