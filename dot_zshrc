@@ -29,6 +29,22 @@ fi
 zi_home="${HOME}/.zi"
 source "${zi_home}/bin/zi.zsh"
 
+typeset -A ZI
+
+setopt append_history 
+setopt hist_reduce_blanks      
+setopt extended_history
+setopt inc_append_history
+setopt share_history
+setopt interactive_comments
+setopt auto_cd
+setopt auto_list
+
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*' original only
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3>7?7:($#PREFIX+$#SUFFIX)/3))numeric)'
+
+
 # Git
 zi snippet OMZL::git.zsh
 zi snippet OMZP::git
@@ -153,6 +169,42 @@ zi light Aloxaf/fzf-tab
 zi ice lucid wait as'completion' blockf mv'git-completion.zsh -> _git'
 zi snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
 
+zi ice lucid wait as'completion' blockf has'cargo'
+zi snippet https://github.com/rust-lang/cargo/blob/master/src/etc/_cargo
+
+zi ice as"completion"
+zi snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
+
+#zi ice lucid wait as'completion' blockf has'rustc'
+#zi snippet https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/rust/_rust
+
+zi ice lucid wait as'completion' blockf has'youtube-dl' mv'youtube-dl.zsh -> _youtube-dl'
+zi snippet https://github.com/ytdl-org/youtube-dl/blob/master/youtube-dl.plugin.zsh
+
+zi ice lucid wait as'completion'
+zi light zsh-users/zsh-completions
+
+zi ice lucid wait as'completion' blockf mv'git-completion.zsh -> _git'
+zi snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
+
+zi lucid light-mode for pick"z.sh" z-shell/z
+
+
+#zi ice svn pick"completion.zsh" src"git.zsh"zi snippet OMZ::lib
+
+# ogham/exa also uses the definitions
+zi ice wait lucid reset \
+ atclone"[[ -z \${commands[dircolors]} ]] && local P=g
+    \${P}sed -i '/DIR/c\DIR 38;5;63;1' LS_COLORS
+    \${P}dircolors -b LS_COLORS >! clrs.zsh" \
+ atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+ atload'zstyle ":completion:*:default" list-colors "${(s.:.)LS_COLORS}";'
+zi light trapd00r/LS_COLORS
+
+zi wait lucid for \
+  has'exa' atinit'AUTOCD=1' \
+    zplugin/zsh-exa
+
 zi snippet OMZ::plugins/git/git.plugin.zsh
 zi snippet OMZ::plugins/sudo/sudo.plugin.zsh
 zi snippet PZT::modules/helper/init.zsh
@@ -161,7 +213,15 @@ zstyle ':completion:*' menu select
 
 fast-theme forest > /dev/null
 
+zi ice if"[ "${TERM##*-}" = '256color' ] || [ "${terminfo[colors]:?}" -gt 255 ]" depth=1
+zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
+zi light romkatv/powerlevel10k
+
 neofetch
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 zi light-mode for \
   z-shell/z-a-meta-plugins \
@@ -169,7 +229,7 @@ zi light-mode for \
 
 export QT_QPA_PLATFORMTHEME="qt5ct"
 
-eval "$(starship init zsh)"
+#eval "$(starship init zsh)"
 
 export PATH="$PATH:`yarn global bin`"
 
