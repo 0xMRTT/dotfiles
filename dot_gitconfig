@@ -17,3 +17,7 @@
 	defaultBranch = main
 [commit]
 	gpgsign = true
+[core]
+	editor = nano -w
+[credential]
+	helper = /usr/lib/git-core/git-credential-libsecret
