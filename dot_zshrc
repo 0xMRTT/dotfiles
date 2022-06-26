@@ -192,19 +192,6 @@ zi lucid light-mode for pick"z.sh" z-shell/z
 
 #zi ice svn pick"completion.zsh" src"git.zsh"zi snippet OMZ::lib
 
-# ogham/exa also uses the definitions
-zi ice wait lucid reset \
- atclone"[[ -z \${commands[dircolors]} ]] && local P=g
-    \${P}sed -i '/DIR/c\DIR 38;5;63;1' LS_COLORS
-    \${P}dircolors -b LS_COLORS >! clrs.zsh" \
- atpull'%atclone' pick"clrs.zsh" nocompile'!' \
- atload'zstyle ":completion:*:default" list-colors "${(s.:.)LS_COLORS}";'
-zi light trapd00r/LS_COLORS
-
-zi wait lucid for \
-  has'exa' atinit'AUTOCD=1' \
-    zplugin/zsh-exa
-
 zi snippet OMZ::plugins/git/git.plugin.zsh
 zi snippet OMZ::plugins/sudo/sudo.plugin.zsh
 zi snippet PZT::modules/helper/init.zsh
@@ -213,7 +200,6 @@ zstyle ':completion:*' menu select
 
 fast-theme forest > /dev/null
 
-zi ice if"[ "${TERM##*-}" = '256color' ] || [ "${terminfo[colors]:?}" -gt 255 ]" depth=1
 zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
 zi light romkatv/powerlevel10k
 
@@ -237,3 +223,5 @@ eval "$(zoxide init zsh --cmd cd)"
 
 export VISUAL=nano
 export EDITOR=nano
+
+
