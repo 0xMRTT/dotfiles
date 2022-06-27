@@ -18,12 +18,6 @@ export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin"
 # https://wiki.archlinux.org/title/Node.js#Node_Packaged_Modules
 export npm_config_prefix="$HOME/.local"
 
-# VTE configuration for Tilix
-# https://gnunn1.github.io/tilix-web/manual/vteconfig/
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
-fi
-
 # Zi
 # https://z.digitalclouds.dev/docs/getting_started/installation
 zi_home="${HOME}/.zi"
@@ -233,3 +227,8 @@ if test -n "$KITTY_INSTALLATION_DIR"; then
     unfunction kitty-integration
 fi
 
+# VTE Configuration
+# https://gnunn1.github.io/tilix-web/manual/vteconfig/
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then 
+   source /etc/profile.d/vte.sh
+fi
