@@ -234,3 +234,5 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
 fi
 
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+
+alias sudo='sudo -v; sudo '
