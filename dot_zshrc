@@ -218,15 +218,6 @@ eval "$(zoxide init zsh --cmd cd)"
 export VISUAL=nano
 export EDITOR=nano
 
-export KITTY_INSTALLATION_DIR="/usr/lib/kitty"
-
-if test -n "$KITTY_INSTALLATION_DIR"; then
-    export KITTY_SHELL_INTEGRATION="enabled"
-    autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
-    kitty-integration
-    unfunction kitty-integration
-fi
-
 # VTE Configuration
 # https://gnunn1.github.io/tilix-web/manual/vteconfig/
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then 
@@ -236,3 +227,6 @@ fi
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 
 alias sudo='sudo -v; sudo '
+zi light-mode for \
+  z-shell/z-a-meta-plugins \
+  @annexes @zunit
