@@ -1,13 +1,5 @@
 fpath+=~/.zfunc
 
-if [ -f $HOME/.zshrc.d/zshenv.sh ]; then
-  source $HOME/.zshrc.d/zshenv.sh
-fi
-
-if [ -f $HOME/.zshrc.d/alias.sh ]; then
-  source $HOME/.zshrc.d/alias.sh
-fi
-
 # XDG
 export XDG_DATA_HOME="$HOME/.local/share"
 
@@ -183,9 +175,6 @@ zi snippet https://github.com/git/git/blob/master/contrib/completion/git-complet
 
 zi lucid light-mode for pick"z.sh" z-shell/z
 
-
-#zi ice svn pick"completion.zsh" src"git.zsh"zi snippet OMZ::lib
-
 zi snippet OMZ::plugins/git/git.plugin.zsh
 zi snippet OMZ::plugins/sudo/sudo.plugin.zsh
 zi snippet PZT::modules/helper/init.zsh
@@ -196,7 +185,7 @@ fast-theme forest > /dev/null
 
 zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
 zi light romkatv/powerlevel10k
-
+clear
 neofetch
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -230,3 +219,11 @@ alias sudo='sudo -v; sudo '
 zi light-mode for \
   z-shell/z-a-meta-plugins \
   @annexes @zunit
+
+if [ -f $HOME/.zshrc.d/zshenv.sh ]; then
+  source $HOME/.zshrc.d/zshenv.sh
+fi
+
+if [ -f $HOME/.zshrc.d/alias.sh ]; then
+  source $HOME/.zshrc.d/alias.sh
+fi
