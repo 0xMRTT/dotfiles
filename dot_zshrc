@@ -108,10 +108,17 @@ zi load z-shell/H-S-MW
 zi ice wait lucid
 zi load z-shell/zui
 
-zi ice wait"[[ -n ${ZLAST_COMMANDS[(r)cra*]} ]]" lucid
-zi load z-shell/zi-crasis
+zi ice wait lucid pick'src/bash.command-not-found'
+zi light hkbakke/bash-insulter
 
 export PATH="$PATH:$HOME/bin"
 
 export LS_COLORS="$(vivid generate molokai)"
 alias ls="exa --icons"
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
+zi light romkatv/powerlevel10k
