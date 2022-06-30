@@ -1,110 +1,35 @@
-fpath+=~/.zfunc
-
-# XDG
-export XDG_DATA_HOME="$HOME/.local/share"
-
-# Add ~/bin to PATH
-export PATH="$PATH:$HOME/bin:$HOME/.cargo/bin"
-
-# Allow user wide npm installations
-# https://wiki.archlinux.org/title/Node.js#Node_Packaged_Modules
-export npm_config_prefix="$HOME/.local"
-
-# Zi
-# https://z.digitalclouds.dev/docs/getting_started/installation
-zi_home="${HOME}/.zi"
-source "${zi_home}/bin/zi.zsh"
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
 
 typeset -A ZI
 
-setopt append_history 
-setopt hist_reduce_blanks      
-setopt extended_history
-setopt inc_append_history
-setopt share_history
-setopt interactive_comments
-setopt auto_cd
-setopt auto_list
+setopt hist_ignore_all_dups    
+setopt hist_expire_dups_first  
+setopt hist_ignore_dups        
+setopt hist_reduce_blanks     
+setopt hist_find_no_dups    
+setopt hist_ignore_space   
+setopt hist_save_no_dups      
+setopt hist_verify          
+setopt append_history     
+setopt extended_history     
+setopt inc_append_history   
+setopt share_history         
+setopt bang_hist            
+setopt multios              
+setopt interactive_comments 
+setopt pushd_ignore_dups    
+setopt auto_cd            
+setopt no_beep              
+setopt auto_list            
+setopt auto_pushd          
+setopt pushdminus          
+setopt promptsubst          
 
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3>7?7:($#PREFIX+$#SUFFIX)/3))numeric)'
 
-
-# Git
-zi snippet OMZL::git.zsh
-zi snippet OMZP::git
-zi cdclear -q
-
-# Git [Addons]
-zi snippet OMZP::git-extras
-# zi snippet OMZP::gh
-zi snippet OMZP::git-lfs
-
-# GPG/SSH/Security
-zi snippet OMZP::gpg-agent
-#zi snippet OMZP::ssh-agent
-zi snippet OMZP::keychain
-zi snippet OMZP::safe-paste
-zi snippet OMZP::firewalld
-
-# Python
-zi snippet OMZP::pip
-zi snippet OMZP::python
-zi snippet OMZP::pylint
-
-# Sysadmin
-zi snippet OMZP::sudo
-zi snippet OMZP::cp
-zi snippet OMZP::systemd
-zi snippet OMZP::systemadmin
-
-
-# Other
-zi snippet OMZP::urltools
-zi snippet OMZP::common-aliases
-
-zi ice as"completion"
-zi snippet OMZP::ag/_ag
-
-zi snippet OMZP::colored-man-pages
-zi snippet OMZP::history-substring-search
-zi snippet OMZP::history-substring-search/history-substring-search.zsh
-
-# OOB (Out-of-band)
-zi load buonomo/yarn-completion
-zi load chrissicool/zsh-256color
-zi load zsh-users/zsh-completions
-zi load lukechilds/zsh-better-npm-completion
-zi load lukechilds/zsh-nvm
-zi load zsh-users/zsh-syntax-highlighting
-
-#zi ice if"[[ -d ${HOME}/.fonts/ttf ]] && [[ $OSTYPE = linux* ]]" \
-#  id-as"meslo" from"gh-r" bpick"Meslo.zip" extract nocompile depth"1" \
-#  atclone="rm -f *Windows*; mv -vf *.ttf ${HOME}/.fonts/ttf/; fc-cache -v -f" atpull"%atclone"
-#zi light ryanoasis/nerd-fonts
-
-
-
-#zi ice if"[ "${TERM##*-}" = '256color' ] || [ "${terminfo[colors]:?}" -gt 255 ]" depth=1
-#zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
-#zi light romkatv/powerlevel10k
-
-
-
-zi snippet OMZL::prompt_info_functions.zsh
-zi snippet OMZL::theme-and-appearance.zsh
-zi snippet OMZT::3den
-
-#Config
-#Keychain
-zstyle :omz:plugins:keychain options --quiet
-zstyle :omz:plugins:keychain agents gpg,ssh
-zstyle :omz:plugins:keychain identities id_ed25519_gitit id_ed25519_servers id_ed25519_local id_ecdsa
-
-autoload -Uz compinit && compinit
-
-# Zstyle
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
@@ -120,49 +45,23 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:
 zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
 zstyle ':completion:*' use-cache true
 zstyle ':completion:*' rehash true
-zstyle ':completion::complete:*' gain-privileges 1
-setopt COMPLETE_ALIASES
+
 zstyle ':completion:*' menu select
 
-# Setopt
-setopt pushd_ignore_dups
-setopt auto_pushd
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_space
-setopt hist_reduce_blanks
+if [[ -r "/home/user/.config/zi/init.zsh" ]]; then
+  source "/home/user/.config/zi/init.zsh" && zzinit
+fi
 
-
-zi light-mode for z-shell/z-a-meta-plugins @annexes+rec
-zi light-mode for @annexes @ext-git @zsh-users @zsh-users+fast @z-shell  @sharkdp  @console-tools @fuzzy @ext-git @py-utils @prezto
-
-# Plugins
-
-zi ice blockf
-
-zi light zsh-users/zsh-syntax-highlighting
-zi light zsh-users/zsh-completions
-zi load zsh-users/zsh-autosuggestions
-
-zi ice wait lucid atinit"ZI[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
-zi light z-shell/F-Sy-H
+zi light-mode for z-shell/z-a-meta-plugins @annexes @ext-git
 
 zi ice lucid wait has'fzf'
-zi load z-shell/H-S-MW
-zi light z-shell/zzcomplete
 zi light Aloxaf/fzf-tab
-
-zi ice lucid wait as'completion' blockf mv'git-completion.zsh -> _git'
-zi snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
-
-zi ice lucid wait as'completion' blockf has'cargo'
-zi snippet https://github.com/rust-lang/cargo/blob/master/src/etc/_cargo
 
 zi ice as"completion"
 zi snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
-#zi ice lucid wait as'completion' blockf has'rustc'
-#zi snippet https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/rust/_rust
+zi ice lucid wait as'completion' blockf has'cargo'
+zi snippet https://github.com/rust-lang/cargo/blob/master/src/etc/_cargo
 
 zi ice lucid wait as'completion' blockf has'youtube-dl' mv'youtube-dl.zsh -> _youtube-dl'
 zi snippet https://github.com/ytdl-org/youtube-dl/blob/master/youtube-dl.plugin.zsh
@@ -170,60 +69,49 @@ zi snippet https://github.com/ytdl-org/youtube-dl/blob/master/youtube-dl.plugin.
 zi ice lucid wait as'completion'
 zi light zsh-users/zsh-completions
 
+zi ice lucid wait as'completion' blockf pick'src/go' src'src/zsh'
+zi light zchee/zsh-completions
+
 zi ice lucid wait as'completion' blockf mv'git-completion.zsh -> _git'
 zi snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
 
+zi ice lucid wait as'program' from"gh-r" has'fzf'
+zi light denisidoro/navi
+
+zi ice lucid wait as'program' has'bat' pick'src/*'
+zi light eth-p/bat-extras
+
+zi ice svn pick"completion.zsh" src"git.zsh"
+zi snippet OMZ::lib
+
 zi lucid light-mode for pick"z.sh" z-shell/z
 
-zi snippet OMZ::plugins/git/git.plugin.zsh
-zi snippet OMZ::plugins/sudo/sudo.plugin.zsh
-zi snippet PZT::modules/helper/init.zsh
+zi ice wait lucid has'fzf' pick'fzf-finder.plugin.zsh'
+zi light leophys/zsh-plugin-fzf-finder
 
-zstyle ':completion:*' menu select
+zi ice wait lucid atinit"ZI[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
+zi light z-shell/F-Sy-H
 
-fast-theme forest > /dev/null
+zi ice wait lucid atload"!_zsh_autosuggest_start"
+zi load zsh-users/zsh-autosuggestions
 
-zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
-zi light romkatv/powerlevel10k
-clear
-neofetch
+zi ice wait lucid atload"zsh-startify"
+zi load z-shell/zsh-startify
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+zi ice wait lucid
+zi load z-shell/zsh-navigation-tools
 
-zi light-mode for \
-  z-shell/z-a-meta-plugins \
-  @annexes @zunit
+zstyle ":history-search-multi-word" page-size "11"
+zi ice wait lucid
+zi load z-shell/H-S-MW
 
-export QT_QPA_PLATFORMTHEME="qt5ct"
+zi ice wait lucid
+zi load z-shell/zui
 
-#eval "$(starship init zsh)"
+zi ice wait"[[ -n ${ZLAST_COMMANDS[(r)cra*]} ]]" lucid
+zi load z-shell/zi-crasis
 
-export PATH="$PATH:`yarn global bin`"
+export PATH="$PATH:$HOME/bin"
 
-eval "$(zoxide init zsh --cmd cd)"
-
-export VISUAL=nano
-export EDITOR=nano
-
-# VTE Configuration
-# https://gnunn1.github.io/tilix-web/manual/vteconfig/
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then 
-   source /etc/profile.d/vte.sh
-fi
-
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
-
-alias sudo='sudo -v; sudo '
-zi light-mode for \
-  z-shell/z-a-meta-plugins \
-  @annexes @zunit
-
-if [ -f $HOME/.zshrc.d/zshenv.sh ]; then
-  source $HOME/.zshrc.d/zshenv.sh
-fi
-
-if [ -f $HOME/.zshrc.d/alias.sh ]; then
-  source $HOME/.zshrc.d/alias.sh
-fi
+export LS_COLORS="$(vivid generate molokai)"
+alias ls="exa --icons"
