@@ -62,5 +62,9 @@
         "fortran_fixed-form": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "sml": "cd $dir && sml $fileName"
-    }
+    },
+    "workbench.colorTheme": "GNOME dark",
+    "window.menuBarVisibility": "toggle",
+    "editor.renderLineHighlight": "none",
+    "workbench.tree.indent": 12
 }
