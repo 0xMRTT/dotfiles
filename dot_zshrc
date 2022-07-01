@@ -114,10 +114,8 @@ zi snippet OMZ::plugins/common-aliases/common-aliases.plugin.zsh
 zi snippet OMZ::plugins/yarn/yarn.plugin.zsh
 zi snippet OMZ::plugins/fzf/fzf.plugin.zsh
 zi snippet OMZ::plugins/gh/gh.plugin.zsh
-zi snippet OMZ::plugins/archlinux/archlinux.plugin.zsh
-zi snippet OMZ::plugins/archlinux/archlinux.plugin.zsh
-zi snippet OMZ::plugins/archlinux/archlinux.plugin.zsh
-zi snippet OMZ::plugins/archlinux/archlinux.plugin.zsh
+zi snippet OMZ::plugins/rust/rust.plugin.zsh
+
 
 export PATH="$PATH:$HOME/bin"
 
