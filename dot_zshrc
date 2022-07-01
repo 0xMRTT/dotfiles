@@ -115,6 +115,8 @@ export PATH="$PATH:$HOME/bin"
 
 export LS_COLORS="$(vivid generate molokai)"
 alias ls="exa --icons"
+alias c="clear"
+eval "$(zoxide init zsh)"
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
