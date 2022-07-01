@@ -111,7 +111,7 @@ zi load z-shell/zui
 zi snippet OMZ::plugins/git/git.plugin.zsh
 zi snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh
 zi snippet OMZ::plugins/common-aliases/common-aliases.plugin.zsh
-zi snippet OMZ::plugins/archlinux/archlinux.plugin.zsh
+zi snippet OMZ::plugins/yarn/yarn.plugin.zsh
 zi snippet OMZ::plugins/archlinux/archlinux.plugin.zsh
 zi snippet OMZ::plugins/archlinux/archlinux.plugin.zsh
 zi snippet OMZ::plugins/archlinux/archlinux.plugin.zsh
