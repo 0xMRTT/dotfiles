@@ -66,5 +66,7 @@
     "workbench.colorTheme": "GNOME dark",
     "window.menuBarVisibility": "toggle",
     "editor.renderLineHighlight": "none",
-    "workbench.tree.indent": 12
+    "workbench.tree.indent": 12,
+    "git.confirmSync": false,
+    "git.autofetch": true
 }
