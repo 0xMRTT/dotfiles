@@ -1,2 +1,11 @@
 {
+    "editor.inlayHints.padding": true,
+    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+    "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+    "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "always",
+    "rust-analyzer.inlayHints.lifetimeElisionHints.enable": "always",
+    "rust-analyzer.inlayHints.reborrowHints.enable": "always",
+    "audioCues.noInlayHints": "off",
+    "window.experimental.commandCenter": true,
+    "window.titleBarStyle": "custom"
 }
