@@ -63,10 +63,11 @@
         "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "sml": "cd $dir && sml $fileName"
     },
-    "workbench.colorTheme": "GNOME dark",
     "window.menuBarVisibility": "toggle",
     "editor.renderLineHighlight": "none",
     "workbench.tree.indent": 12,
     "git.confirmSync": false,
-    "git.autofetch": true
+    "git.autofetch": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "git.enableSmartCommit": true
 }
