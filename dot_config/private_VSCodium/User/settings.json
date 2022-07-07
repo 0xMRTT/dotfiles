@@ -69,5 +69,17 @@
     "git.confirmSync": false,
     "git.autofetch": true,
     "workbench.iconTheme": "material-icon-theme",
-    "git.enableSmartCommit": true
+    "git.enableSmartCommit": true,
+    "[vue]": {
+        "editor.defaultFormatter": "Vue.volar"
+    },
+    "explorer.confirmDragAndDrop": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "explorer.confirmDelete": false,
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "svelte.enable-ts-plugin": true
 }
