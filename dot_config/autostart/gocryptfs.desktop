@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=sh "/home/user/.gocryptfs"
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name=Gocryptfs
+Comment[en_IN]=
+Comment=
