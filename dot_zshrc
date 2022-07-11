@@ -129,3 +129,5 @@ fi
 
 zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
 zi light romkatv/powerlevel10k
+
+zi snippet https://raw.githubusercontent.com/oven-sh/bun/main/completions/bun.zsh
