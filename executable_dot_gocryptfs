@@ -1,0 +1,1 @@
+gocryptfs --extpass="secret-tool lookup cipher /home/user/.Documents" /home/user/.Documents /home/user/Documents
