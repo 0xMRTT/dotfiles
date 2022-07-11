@@ -81,5 +81,25 @@
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "svelte.enable-ts-plugin": true
+    "svelte.enable-ts-plugin": true,
+    "files.exclude": {
+        "**/.trunk/*out": true
+    },
+    "files.watcherExclude": {
+        "**/.trunk/*out": true
+    },
+    "trunk.trunkGrayOutNonBlockingIssues": false,
+    "terminal.integrated.shellIntegration.enabled": true,
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "trunk.io"
+    },
+    "[rust]": {
+        "editor.defaultFormatter": "rust-lang.rust-analyzer"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "stylelint.vscode-stylelint"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "trunk.io"
+    }
 }
