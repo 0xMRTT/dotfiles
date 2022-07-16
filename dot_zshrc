@@ -1,30 +1,68 @@
-autoload -Uz _zi
-(( ${+_comps} )) && _comps[zi]=_zi
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+if [[ -r "${XDG_CONFIG_HOME:-${HOME}/.config}/zi/init.zsh" ]]; then
+  source "${XDG_CONFIG_HOME:-${HOME}/.config}/zi/init.zsh" && zzinit
+else
+  source <(curl -sL https://init.zshell.dev); zzinit
+fi
 
-typeset -A ZI
+local ZSH_AUTOSUGGEST_USE_ASYNC=true
+local ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+local ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+local ZSH_COLORIZE_STYLE=colorful
+local ZSH_COLORIZE_CHROMA_FORMATTER=terminal256
 
-setopt hist_ignore_all_dups    
-setopt hist_expire_dups_first  
-setopt hist_ignore_dups        
-setopt hist_reduce_blanks     
-setopt hist_find_no_dups    
-setopt hist_ignore_space   
-setopt hist_save_no_dups      
-setopt hist_verify          
-setopt append_history     
-setopt extended_history     
-setopt inc_append_history   
-setopt share_history         
-setopt bang_hist            
-setopt multios              
-setopt interactive_comments 
-setopt pushd_ignore_dups    
-setopt auto_cd            
-setopt no_beep              
-setopt auto_list            
-setopt auto_pushd          
-setopt pushdminus          
-setopt promptsubst          
+setopt hist_ignore_all_dups
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_reduce_blanks
+setopt hist_find_no_dups
+setopt hist_ignore_space
+setopt hist_save_no_dups
+setopt hist_verify
+setopt append_history
+setopt extended_history
+setopt inc_append_history
+setopt share_history
+setopt bang_hist
+setopt multios
+setopt interactive_comments
+setopt pushd_ignore_dups
+setopt auto_cd
+setopt no_beep
+setopt auto_list
+setopt auto_pushd
+setopt pushdminus
+setopt promptsubst
+
+snippets=({git,clipboard,history,completion,vcs_info}.zsh)
+zi ice has'svn' svn multisrc'$snippets' pick'/dev/null' \
+atinit'HISTFILE=${ZSH_CACHE_DIR}/.zsh-history; COMPLETION_WAITING_DOTS=true;'
+zi snippet OMZ::lib
+
+zi snippet OMZ::plugins/git/git.plugin.zsh
+zi snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh
+zi snippet OMZ::plugins/common-aliases/common-aliases.plugin.zsh
+zi snippet OMZ::plugins/yarn/yarn.plugin.zsh
+zi snippet OMZ::plugins/fzf/fzf.plugin.zsh
+zi snippet OMZ::plugins/sudo/sudo.plugin.zsh
+
+zi light-mode for z-shell/z-a-meta-plugins \
+@annexes @ext-git @zsh-users+fast @romkatv \
+skip'dircolors-material' @console-tools skip'F-Sy-H' @z-shell
+
+zi-turbo '0a' for \
+as"completion" blockf \
+https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker \
+as'completion' blockf has'cargo' \
+https://github.com/rust-lang/cargo/blob/master/src/etc/_cargo \
+as'completion' blockf mv'git-completion.zsh -> _git' \
+https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh \
+as'completion' blockf \
+https://raw.githubusercontent.com/oven-sh/bun/main/completions/bun.zsh \
+as'completion' blockf \
+zchee/zsh-completions
 
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
@@ -45,89 +83,22 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:
 zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
 zstyle ':completion:*' use-cache true
 zstyle ':completion:*' rehash true
-
 zstyle ':completion:*' menu select
-
-if [[ -r "/home/user/.config/zi/init.zsh" ]]; then
-  source "/home/user/.config/zi/init.zsh" && zzinit
-fi
-
-zi light-mode for z-shell/z-a-meta-plugins @annexes @ext-git
-
-zi ice lucid wait has'fzf'
-zi light Aloxaf/fzf-tab
-
-zi ice as"completion"
-zi snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
-
-zi ice lucid wait as'completion' blockf has'cargo'
-zi snippet https://github.com/rust-lang/cargo/blob/master/src/etc/_cargo
-
-zi ice lucid wait as'completion' blockf has'youtube-dl' mv'youtube-dl.zsh -> _youtube-dl'
-zi snippet https://github.com/ytdl-org/youtube-dl/blob/master/youtube-dl.plugin.zsh
-
-zi ice lucid wait as'completion'
-zi light zsh-users/zsh-completions
-
-zi ice lucid wait as'completion' blockf pick'src/go' src'src/zsh'
-zi light zchee/zsh-completions
-
-zi ice lucid wait as'completion' blockf mv'git-completion.zsh -> _git'
-zi snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
-
-zi ice lucid wait as'program' from"gh-r" has'fzf'
-zi light denisidoro/navi
-
-zi ice lucid wait as'program' has'bat' pick'src/*'
-zi light eth-p/bat-extras
-
-zi ice svn pick"completion.zsh" src"git.zsh"
-zi snippet OMZ::lib
-
-zi lucid light-mode for pick"z.sh" z-shell/z
-
-zi ice wait lucid has'fzf' pick'fzf-finder.plugin.zsh'
-zi light leophys/zsh-plugin-fzf-finder
-
-zi ice wait lucid atinit"ZI[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
-zi light z-shell/F-Sy-H
-
-zi ice wait lucid atload"!_zsh_autosuggest_start"
-zi load zsh-users/zsh-autosuggestions
-
-zi ice wait lucid atload"zsh-startify"
-zi load z-shell/zsh-startify
-
-zi ice wait lucid
-zi load z-shell/zsh-navigation-tools
-
 zstyle ":history-search-multi-word" page-size "11"
-zi ice wait lucid
-zi load z-shell/H-S-MW
 
-zi ice wait lucid
-zi load z-shell/zui
+(( $+commands[vivid] )) && { export LS_COLORS="$(vivid generate molokai)" }
 
-zi snippet OMZ::plugins/git/git.plugin.zsh
-zi snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh
-zi snippet OMZ::plugins/common-aliases/common-aliases.plugin.zsh
-zi snippet OMZ::plugins/yarn/yarn.plugin.zsh
-zi snippet OMZ::plugins/fzf/fzf.plugin.zsh
-zi snippet OMZ::plugins/sudo/sudo.plugin.zsh
-
+zi-turbo '0b' for \
+has'fzf' Aloxaf/fzf-tab \
+has'fzf' as'program' from"gh-r" denisidoro/navi \
+zplugin/zsh-exa z-shell/zui z-shell/zsh-navigation-tools \
+has'fzf' pick'fzf-finder.plugin.zsh' leophys/zsh-plugin-fzf-finder
+# atload"zsh-startify" z-shell/zsh-startify
 
 export PATH="$PATH:$HOME/bin"
-
-export LS_COLORS="$(vivid generate molokai)"
-alias ls="exa --icons"
+alias reload!='exec "$SHELL" -l'
+alias reload-zsh!='exec zsh -l'
 alias c="clear"
 #eval "$(zoxide init zsh)"
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
-zi light romkatv/powerlevel10k
-
-zi snippet https://raw.githubusercontent.com/oven-sh/bun/main/completions/bun.zsh
+(( $+commands[exa] )) || { reload-zsh! }
