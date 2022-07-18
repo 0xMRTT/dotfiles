@@ -8,7 +8,7 @@ else
 fi
 
 typeset -Ag ZI
-ZI[PRIVATE_FUNCTIONS]="YOUR_PATH_HERE/functions" #<--- Create dir and add path here.
+ZI[PRIVATE_FUNCTIONS]=".zshrc.d/functions" #<--- Create dir and add path here.
 fpath=( "${ZI[PRIVATE_FUNCTIONS]}" "${fpath[@]}" )
 autoload -Uz $fpath[1]/*(.:t)
 
