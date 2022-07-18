@@ -7,6 +7,11 @@ else
   source <(curl -sL https://init.zshell.dev); zzinit
 fi
 
+typeset -Ag ZI
+ZI[PRIVATE_FUNCTIONS]="YOUR_PATH_HERE/functions" #<--- Create dir and add path here.
+fpath=( "${ZI[PRIVATE_FUNCTIONS]}" "${fpath[@]}" )
+autoload -Uz $fpath[1]/*(.:t)
+
 local ZSH_AUTOSUGGEST_USE_ASYNC=true
 local ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 local ZSH_AUTOSUGGEST_STRATEGY=(history completion)
